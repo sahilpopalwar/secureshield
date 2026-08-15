@@ -42,6 +42,10 @@
 
       <!-- Heading -->
       <div class="l-heading">
+        <div th:if="${param.error}" style="background:#ef4444;color:white;padding:12px;border-radius:8px;margin:0 0 16px 0;font-size:14px;font-weight:500;box-shadow:0 2px 8px rgba(239,68,68,0.3);">
+          ❌ Login failed - Invalid credentials
+          <br><small>✓ Email: <code>admin@secureshield.io</code> | Password: <code>admin123</code></small>
+        </div>
         <h1>Welcome back</h1>
         <p>Sign in to your security console to continue</p>
       </div>
@@ -227,20 +231,10 @@ function handleSubmit(e) {
   btn.classList.add('loading');
   btn.disabled = true;
 
-  // Demo: admin@secureshield.io / admin123 success
-  setTimeout(() => {
-    // For demo - in production Spring Security handles redirect
-    if (email === 'admin@secureshield.io' && password === 'admin123') {
-      lShowToast('Access granted — redirecting...', 'success');
-      window.location.href = '/dashboard';
-    } else {
-      lSetFieldError('l-field-email', 'Invalid credentials');
-      lSetFieldError('l-field-password', 'Check email and password');
-      lShowToast('Authentication failed', 'error');
-      btn.classList.remove('loading');
-      btn.disabled = false;
-    }
-  }, 1500);
+  // Real Spring Security POST - no JS demo
+  lShowToast('Authenticating...', 'info');
+  e.target.submit();
+
 }
 
 function handleForgot(e) {
@@ -261,4 +255,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
-

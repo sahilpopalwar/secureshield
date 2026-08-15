@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
 @EnableWebSecurity
@@ -27,25 +27,26 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/actuator/**").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/actuator/**", "/error").permitAll()
                 .requestMatchers("/api/**").authenticated()
-                .requestMatchers("/dashboard/**").authenticated()
+                .requestMatchers("/dashboard", "/dashboard/**").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/")
-                .permitAll()
                 .defaultSuccessUrl("/dashboard", true)
+                .permitAll()
             )
             .logout(logout -> logout
-                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll()
             )
             .csrf(csrf -> csrf
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             )
-            .headers(headers -> headers.frameOptions().sameOrigin()); // Secure H2 if needed
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            );
         
         return http.build();
     }
@@ -60,3 +61,4 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user);
     }
 }
+

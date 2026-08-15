@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/dashboard")
 @PreAuthorize("isAuthenticated()")
-@CrossOrigin(origins = "http://localhost:8080") // Frontend only
+@CrossOrigin(origins = "https://localhost:8444") // Frontend only
 public class DashboardApiController {
 
     @Autowired

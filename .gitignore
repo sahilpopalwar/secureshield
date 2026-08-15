@@ -1,0 +1,28 @@
+# Maven / Java
+/target/
+*.class
+*.log
+*.tmp
+
+# Keystores and sensitive keys
+*.p12
+*.jks
+*.keystore
+.env
+
+# IDEs and editors
+/.idea/
+*.iml
+/.vscode/
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Other
+dist/
+build/

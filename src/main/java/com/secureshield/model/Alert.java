@@ -1,7 +1,6 @@
 package com.secureshield.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,24 +11,12 @@ public class Alert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     private String timestamp;
-
-    @NotNull
     private String owasp;
-
-    @NotNull
     private String description;
-
-    @NotNull
     private String ip;
-
     private String port;
-
-    @NotNull
     private String severity;
-
-    @NotNull
     private String status;
 
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -75,3 +62,4 @@ public class Alert {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
+

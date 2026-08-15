@@ -1,14 +1,25 @@
 server:
-  port: 8080
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+    key-alias: tomcat
   servlet:
     context-path: /
+  # HTTPS (uncomment + generate keystore):
+  # ssl:
+  #   enabled: true
+  #   key-store: classpath:keystore.p12
+  #   key-store-password: changeit
+  #   key-store-type: PKCS12
+  #   key-alias: tomcat
+  # port: 8443
 
 spring:
   thymeleaf:
     cache: false
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML
   # security.user removed - using SecurityConfig InMemoryUserDetailsManager
   h2:
     console:
@@ -19,10 +30,10 @@ spring:
     username: sa
     password: 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
 
 logging:
   level:
